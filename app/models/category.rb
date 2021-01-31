@@ -13,13 +13,14 @@ class Category < ApplicationRecord
     ancestors
   end
 
-  def offspring()
+  def offspring(offsprings = nil)
     offsprings ||= []
-
-    
-      childrens = Category.where(category_id: self.id)
-    
-    
+    childrens = Category.where(category_id: self.id)
+    childrens.each do |child|
+      offsprings << child.id
+      child.offspring(offsprings)
+    end
+    offsprings
   end
 
 end
