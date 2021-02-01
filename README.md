@@ -1,8 +1,15 @@
 # README
+## Nuevo diagrama de aplicación:
+Según las indicaciones entregadas la base de datos ha sido modificada de la siguiente manera:
+
+![BBDD Diagram](app/assets/images/BBDD_diagram.png)
+
+
+
 ## Para implementar cupones:
 Recomiendo crear la siguiente estructura de BBDD:
 
-![BBDD Diagram](app/assets/images/BBDD_diagram_coupon_alternative.png)
+![BBDD Coupon Diagram](app/assets/images/BBDD_diagram_coupon.png)
 
 ## Coupon:
 ### user_id:integer - clave foránea de usuario, Campo opcional.  
@@ -24,4 +31,7 @@ Referencia al usuario que está cerrando la orden.
 ### coupon_id - Clave foránea del cupón, campo 
 Referencia al cupón utilizado en la orden.
 
-(*) Es importante destacar que este modelado permite el uso de más de un cupón por orden, siendo un diseño más flexible. Se podría optar por simplemente agregar un atributo opcional de coupon_id al modelo Order, pero esto implicaría que solo se podrá utilizar un solo cupón por venta.
+(*) Es importante destacar que este modelado permite el uso de más de un cupón por orden, siendo un diseño más flexible. Se podría optar por simplemente agregar un atributo opcional de coupon_id al modelo Order, pero esto implicaría que solo se podrá utilizar un solo cupón por venta. 
+En caso de querer aplicar el modelado recien descrito adjunto la imagen:
+
+![BBDD Alternative Coupon Diagram](app/assets/images/BBDD_diagram_coupon_alternative.png)
