@@ -1,6 +1,8 @@
 # README
 ## Para implementar cupones:
-Recomiendo crear los siguientes modelos:
+Recomiendo crear la siguiente estructura de BBDD:
+
+![BBDD Diagram](app/assets/images/BBDD_diagram_coupon_alternative.png)
 
 ## Coupon:
 ### user_id:integer - clave foránea de usuario, Campo opcional.  
