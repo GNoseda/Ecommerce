@@ -12,9 +12,18 @@ Según las indicaciones entregadas la base de datos ha sido modificada de la sig
 
 - Modelo Composition agregado: Es el modelo que reune cada producto con su composición de variantes. EJ: "Polera_logo_1" + "Talla:X" y "Polera_Logo_1" + "Color:Verde"
 
-- Atributo category_id agregado a Modelo Category: Atributo opcional que señala la categoría padre del registro. Al ser un solo atributo implica que una categoría como máximo podrá tener una categoría padre.
+- Atributo category_id agregado a Modelo Category (*): Atributo opcional que señala la categoría padre del registro. Al ser un solo atributo implica que una categoría como máximo podrá tener una categoría padre.
 
+(*) Para saber la ascendencia y descendencia completa de cada categoría se han implementado en el modelo Category los métodos .ancestry() y .offspring() que retornan arreglos con los ids de las categorías relacioandas
 ```
+    Categoria_1 = Category.create(name:'Categoria 1') #id: 1
+    Categoria_2 = Category.create(name:'Categoria 2', category_id: 1) #id: 2
+    Categoria_3 = Category.create(name:'Categoria 3', category_id: 1) #id: 3
+    Categoria_4 = Category.create(name:'Categoria 4', category_id: 2) #id: 4
+
+    Categoria_1.offspring #retorna [2,4,3]
+    Categoria_4.ancestry #retorna [2,1]
+    
 ```
 
 ## Implementar catálogo:
@@ -39,8 +48,8 @@ Ejemplo:
     Composition.create(product_id:1,variant_id:2) #Variante talla M
     Composition.create(product_id:1,variant_id:3) #Variante color verde
 
-    ProductoPPAL.catalog #Retorna true al detectar que Producto_1 tiene stock
-    ProductoPPAL.show_catalog #Retorna el objeto Producto_1 por ser la variante con stock
+    ProductoPPAL.catalog #Retorna true al detectar que al menos una de sus variantes (Producto_1) tiene stock
+    ProductoPPAL.show_catalog #Retorna el objeto Producto_1 por ser la variante con stock. En caso de haber más de una variante con stock retorna el producto más antiguo en la base de datos
 ```
 
 
