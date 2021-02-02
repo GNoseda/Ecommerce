@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_31_045216) do
+ActiveRecord::Schema.define(version: 2021_02_02_021401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,21 @@ ActiveRecord::Schema.define(version: 2021_01_31_045216) do
     t.bigint "category_id", null: false
     t.index ["category_id", "product_id"], name: "index_categories_products_on_category_id_and_product_id"
     t.index ["product_id", "category_id"], name: "index_categories_products_on_product_id_and_category_id"
+  end
+
+  create_table "compositions", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "variant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_compositions_on_product_id"
+    t.index ["variant_id"], name: "index_compositions_on_variant_id"
+  end
+
+  create_table "mainproducts", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -90,6 +105,8 @@ ActiveRecord::Schema.define(version: 2021_01_31_045216) do
     t.string "sku"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "mainproduct_id"
+    t.index ["mainproduct_id"], name: "index_products_on_mainproduct_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -111,9 +128,12 @@ ActiveRecord::Schema.define(version: 2021_01_31_045216) do
   end
 
   add_foreign_key "categories", "categories"
+  add_foreign_key "compositions", "products"
+  add_foreign_key "compositions", "variants"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
   add_foreign_key "payments", "orders"
   add_foreign_key "payments", "payment_methods"
+  add_foreign_key "products", "mainproducts"
 end
