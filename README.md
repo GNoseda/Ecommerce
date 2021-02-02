@@ -4,7 +4,47 @@ Según las indicaciones entregadas la base de datos ha sido modificada de la sig
 
 ![BBDD Diagram](app/assets/images/BBDD_diagram.png)
 
+### Detalle de cambios:
 
+- Modelo Mainproduct agregado: es la entidad que hace referencia a un producto de manera genérica. EJ: "Polera_logo_1"
+
+- Modelo Variant agregado: es la entidad donde se generan las variantes de los productos. EJ: "Talla:X", "Color:Verde"
+
+- Modelo Composition agregado: Es el modelo que reune cada producto con su composición de variantes. EJ: "Polera_logo_1" + "Talla:X" y "Polera_Logo_1" + "Color:Verde"
+
+- Atributo category_id agregado a Modelo Category: Atributo opcional que señala la categoría padre del registro. Al ser un solo atributo implica que una categoría como máximo podrá tener una categoría padre.
+
+```
+```
+
+## Implementar catálogo:
+Para implementar catálogo con los requerimientos descritos se deberá ser extraer desde el modelo Mainproduct. El modelo tiene definidos los metodos catalog y show_catalog con los que podrá señalar si alguna de sus variantes tiene stock y seleccionar una variante con stock para poner en el catálogo.
+
+Ejemplo:
+```
+    #Creación de producto principal
+    ProductoPPAL = Mainproduct.create(name:"Polera_logo_1")
+    
+    #Creación de variantes
+    Variante_Talla_1 = Variant.create(name:"Talla:X")
+    Variante_Talla_2 = Variant.create(name:"Talla:M")
+    Variante_Color_1 = Variant.create(name:"Color:Verde")
+    
+    #Creación de Productos con variante
+    Producto_1 = Product.create(name:"Polera Logo 1 Talla:X Color:Verde", stock:20, sku:'123456', price:10000, mainproduct_id:1)
+    Composition.create(product_id:1,variant_id:1) #Variante talla X
+    Composition.create(product_id:1,variant_id:3) #Variante color verde
+
+    Producto_2 = Product.create(name:"Polera Logo 1 Talla:M Color:Verde", stock:0, sku:'654321', price:10000, mainproduct_id:1)
+    Composition.create(product_id:1,variant_id:2) #Variante talla M
+    Composition.create(product_id:1,variant_id:3) #Variante color verde
+
+    ProductoPPAL.catalog #Retorna true al detectar que Producto_1 tiene stock
+    ProductoPPAL.show_catalog #Retorna el objeto Producto_1 por ser la variante con stock
+```
+
+
+La estructura implementada permite conservar el modelo OrderItem sin modificaciones, ya que sigue estando relacionada a la entidad product.
 
 ## Para implementar cupones:
 Recomiendo crear la siguiente estructura de BBDD:
