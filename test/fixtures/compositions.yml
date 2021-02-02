@@ -1,15 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  sku: MyString
-  price: 9.99
-  stock: 1
+  product_references: MyString
   variant: one
-  product: one
 
 two:
-  sku: MyString
-  price: 9.99
-  stock: 1
+  product_references: MyString
   variant: two
-  product: two
