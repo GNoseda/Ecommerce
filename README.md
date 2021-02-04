@@ -84,3 +84,4 @@ Referencia al cupón utilizado en la orden.
 En caso de querer aplicar el modelado recien descrito adjunto la imagen:
 
 ![BBDD Alternative Coupon Diagram](app/assets/images/BBDD_diagram_coupon_alternative.png)
+
